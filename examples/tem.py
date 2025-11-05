@@ -15,7 +15,6 @@ from vtkmodules.vtkRenderingCore import (
 )
 from vtkmodules.vtkCommonDataModel import vtkPointData
 
-
 def main():
     colors = vtkNamedColors()
     colors.SetColor("ParaViewBkg", 82, 87, 110, 255)
