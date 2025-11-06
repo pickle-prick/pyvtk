@@ -1,15 +1,33 @@
 import pyvista as pv
 from pyvista import examples
+import numpy as np
 
 def main():
   probs = examples.download_thermal_probes()
+  # add velocity to the point data
+  velocities = []
+  for point in probs.points:
+    x, y, z = point
+    # create a simple swirling velocity field
+    u = -y
+    v = x
+    w = 0.1 * z
+    # normalize
+    mag = np.sqrt(u**2 + v**2 + w**2)
+    u /= mag
+    v /= mag
+    w /= mag
+    velocities.append((u, v, w))
+  velocities = np.array(velocities)
+  probs.point_data["velocity"] = velocities
 
   grid = pv.ImageData()
   grid.origin = (329700, 4252600, -2700)
-  grid.spacing = (250, 250, 50)
+  grid.spacing = (2500, 2500, 500)
   grid.dimensions = (60, 75, 100)
 
   interp = grid.interpolate(probs, radius=15000, sharpness=10, strategy="mask_points")
+  arrows = interp.glyph(orient="velocity", scale="velocity", factor=200.0, tolerance=0.01)
 
   drags = dict(cmap="coolwarm", clim=[0, 300], scalars="temperature (C)")
   cpos = [
@@ -29,8 +47,10 @@ def main():
   pl.subplot(0, 1)
 
   pl.add_mesh(grid.outline(), color="k")
-  pl.add_mesh(interp.contour(9), opacity=0.5, **drags)
+  # pl.add_mesh(interp.contour(9), opacity=0.5, **drags)
   pl.add_mesh(probs, render_points_as_spheres=True, point_size=10, **drags)
+  pl.add_mesh(arrows, color="black")
+
   pl.show(cpos=cpos)
 
 if __name__ == "__main__":
