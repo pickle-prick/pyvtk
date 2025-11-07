@@ -1558,6 +1558,23 @@ wheels = [
 ]
 
 [[package]]
+name = "ptk"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "h5py" },
+    { name = "pyvista", extra = ["all"] },
+    { name = "vtk" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "h5py", specifier = ">=3.15.1" },
+    { name = "pyvista", extras = ["all"], specifier = ">=0.46.4" },
+    { name = "vtk", specifier = ">=9.5.2" },
+]
+
+[[package]]
 name = "ptyprocess"
 version = "0.7.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1656,23 +1673,6 @@ all = [
     { name = "trame-server" },
     { name = "trame-vtk" },
     { name = "trame-vuetify" },
-]
-
-[[package]]
-name = "pyvtk"
-version = "0.1.0"
-source = { virtual = "." }
-dependencies = [
-    { name = "h5py" },
-    { name = "pyvista", extra = ["all"] },
-    { name = "vtk" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "h5py", specifier = ">=3.15.1" },
-    { name = "pyvista", extras = ["all"], specifier = ">=0.46.4" },
-    { name = "vtk", specifier = ">=9.5.2" },
 ]
 
 [[package]]
