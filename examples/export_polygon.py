@@ -148,7 +148,6 @@ def main():
     # actor_2.SetUserTransform(actor_1.GetUserTransform())
     actor_2.SetUserMatrix(actor_1.GetMatrix())
     
-
   # glyph_mapper = vtk.vtkGlyph3DMapper()
   # glyph_mapper.SetInputData(polydata)
   # glyph_mapper.SetSourceConnection(arrow_source.GetOutputPort())
