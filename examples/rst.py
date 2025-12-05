@@ -5,12 +5,24 @@ import pyvista as pv
 def main():
   filename = "data/file_1.rst"
   # filename = examples.hexarchivefile
+
   ret = pymapdl_reader.read_binary(filename) 
-  # ret.plot_nodal_solution(0, 'x', label='Displacement')
   props = [i for i in dir(ret) if not i.startswith("_")]
   for i in props: print(i)
+
+  # ret.plot_nodal_solution(0, 'x', label='Displacement')
+  # ret.plot_nodal_elastic_strain(0, 'x', label='ElasticStrain')
+  # ret.plot_nodal_plastic_strain(0, 'x', label='PlasticStrain')
+  # ret.plot_nodal_solution(0, 'x', label='PlasticStrain')
+  # ret.plot_nodal_stress(0, 'x', label='PlasticStrain')
+  # ret.plot_nodal_temperature(0, 'x', label='PlasticStrain')
+  # ret.plot_principal_nodal_stress(3, 'x', label='PlasticStrain')
+
+  # steps
   freqs = ret.time_values
   print(freqs)
+
+  # mesh
   mesh = ret.grid
   print("###")
   print(f"mesh: {ret.mesh}")
