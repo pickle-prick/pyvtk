@@ -6,10 +6,15 @@ import pyvista as pv
 
 def main():
   # filename = "data/file.rst"
-  filename = "data/file-nocompression.rst"
+  # filename = "data/file-nocompression.rst"
+  filename = "data/file_final.rst"
   # filename = examples.hexarchivefile
   ret = pymapdl_reader.read_binary(filename)
-  print(ret.result_dof(0))
+  # print(ret.result_dof(0))
+  # ret.plot_principal_nodal_stress(0, "SEQV", show_displacement=True, treat_nan_as_zero=True, loop=False)
+  # _, pstress = ret.principal_nodal_stress("")
+  ret.plot_principal_nodal_stress(90, "SEQV", treat_nan_as_zero=True)
+  return
 
   point_data = ret.grid.point_data
   ids_1 = ret.grid.point_data["GEAR1"].astype(int)
@@ -40,12 +45,12 @@ def main():
 
   # 158254
   # 79122*2 = 158244
-  plotter = pv.Plotter()
-  # plotter.add_mesh(mblock)
-  plotter.add_mesh(blocks[0], color="red")
-  plotter.add_mesh(blocks[1], color="blue")
-  plotter.show()
-  return
+  # plotter = pv.Plotter()
+  # # plotter.add_mesh(mblock)
+  # plotter.add_mesh(blocks[0], color="red")
+  # plotter.add_mesh(blocks[1], color="blue")
+  # plotter.show()
+  # return
 
   print("--- File Info ---")
   print(f"Number of nodes: {ret.mesh.n_node}")
@@ -57,9 +62,9 @@ def main():
 
   nnum, pstress = ret.principal_nodal_stress(0)
   # ret.plot_nodal_stress(3, "Z", show_displacement=True)
-  for i in range(nsets):
-    ret.plot_principal_nodal_stress(i, "SEQV", show_displacement=True, treat_nan_as_zero=True, loop=False)
-  return
+  # for i in range(nsets):
+  #   ret.plot_principal_nodal_stress(i, "SEQV", show_displacement=True, treat_nan_as_zero=True, loop=False)
+  # return
 
   props = [i for i in dir(ret) if not i.startswith("_")]
   for i in props: print(i)
@@ -70,7 +75,7 @@ def main():
   #   ret.plot_nodal_solution(0, 'x', label='Displacement')
 
   # ret.plot_nodal_solution(0, show_displacement=True, displacement_factor=100)
-  # ret.animate_nodal_solution(0, show_displacement=False, treat_nan_as_zero=False, loop=False)
+  ret.animate_nodal_solution(0, show_displacement=False, treat_nan_as_zero=False, loop=False)
   # ret.animate_nodal_solution_set([0,1,2,3,4])
   # return
   # ret.animate_nodal_displacement(0)
