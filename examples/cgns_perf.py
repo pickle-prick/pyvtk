@@ -66,7 +66,7 @@ def perf(mesh_path: str, bin_path: str):
 
   # compute index map
   s = time.perf_counter()
-  point_idx_map, dist = nn_index_map(point_data, mesh.points)
+  point_idx_map, dist = nn_index_map(point_data, mesh.points, 1)
   print(f"index map time: {time.perf_counter() - s:.2f} seconds")
 
   # surface extraction
@@ -88,13 +88,13 @@ def perf(mesh_path: str, bin_path: str):
   # 1. copy mesh
   # 2. read bin file
   # 3. compute principal stress
-  # s = time.perf_counter()
-  # mesh_copy = mesh.copy(deep=True)
-  # point_data = read_bin_file(bin_path, 3)
-  # stress = point_data[point_idx_map]
-  # pstress = compute_principal_stress(stress)
-  # mesh.point_data["pstress"] = pstress
-  # print(f"step time: {time.perf_counter() - s:.2f} seconds")
+  s = time.perf_counter()
+  mesh_copy = mesh.copy(deep=True)
+  point_data = read_bin_file(bin_path, 3)
+  stress = point_data[point_idx_map]
+  pstress = compute_principal_stress(stress)
+  mesh.point_data["pstress"] = pstress
+  print(f"step time: {time.perf_counter() - s:.2f} seconds")
 
   print(f"total time: {time.perf_counter() - start_time:.2f} seconds")
 
