@@ -8,6 +8,7 @@ dependencies = [
     "ansys-mapdl-reader>=0.55.1",
     "h5py>=3.15.1",
     "pyvista[all]>=0.46.4",
+    "scipy>=1.17.1",
     "sexpdata>=1.0.2",
     "vtk>=9.5.2",
 ]
